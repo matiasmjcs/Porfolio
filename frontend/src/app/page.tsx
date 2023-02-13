@@ -1,21 +1,18 @@
 "use client";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useContext } from "react";
 import { ThemeContext } from "../context/Provider";
+import Nav from "../components/Nav";
+import Main from "../components/Main";
+import Footer from "../components/Footer";
 
 export default function Home() {
-  const { numero } = useContext(ThemeContext);
+  const {} = useContext(ThemeContext);
 
   return (
-    <main>
-      <ConnectButton
-        accountStatus={{
-          smallScreen: "avatar",
-          largeScreen: "full",
-        }}
-      />
-
-      {numero}
-    </main>
+    <>
+      <Nav />
+      <Main />
+      <Footer />
+    </>
   );
 }
