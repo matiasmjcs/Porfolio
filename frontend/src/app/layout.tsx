@@ -1,5 +1,6 @@
 "use client";
 import Provider from "../context/Provider";
+import Nav from "../components/Nav";
 
 export default function RootLayout({
   children,
@@ -11,7 +12,10 @@ export default function RootLayout({
       <head />
       <body>
         <Provider>
-          <>{children}</>
+          <>
+            <Nav />
+            {children}
+          </>
         </Provider>
       </body>
     </html>
