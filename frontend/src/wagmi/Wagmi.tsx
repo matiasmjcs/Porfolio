@@ -1,10 +1,16 @@
 "use client";
 import "@rainbow-me/rainbowkit/styles.css";
 import {
-  getDefaultWallets,
+  connectorsForWallets,
   RainbowKitProvider,
   darkTheme,
 } from "@rainbow-me/rainbowkit";
+import {
+  rainbowWallet,
+  metaMaskWallet,
+  walletConnectWallet,
+  coinbaseWallet,
+} from "@rainbow-me/rainbowkit/wallets";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import {
   mainnet,
@@ -15,16 +21,23 @@ import {
 } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
+const API: any = process.env.NEXT_PUBLIC_ALCHEMY_ID;
 
 const { chains, provider } = configureChains(
   [mainnet, polygon, optimism, arbitrum, polygonMumbai],
-  [alchemyProvider({ apiKey: "" }), publicProvider()]
+  [alchemyProvider({ apiKey: API }), publicProvider()]
 );
-
-const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
-  chains,
-});
+const connectors = connectorsForWallets([
+  {
+    groupName: "Recommended",
+    wallets: [
+      metaMaskWallet({ chains }),
+      rainbowWallet({ chains }),
+      walletConnectWallet({ chains }),
+      coinbaseWallet({ appName: "Porfolio", chains }),
+    ],
+  },
+]);
 
 const wagmiClient = createClient({
   autoConnect: true,
